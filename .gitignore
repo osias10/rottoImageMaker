@@ -1,0 +1,7 @@
+/images/*
+/dist
+/build
+*.spec
+*.xlsx
+/__pycache__
+original.png

@@ -1,13 +1,20 @@
 import openpyxl
 import tkinter
 from PIL import Image, ImageDraw, ImageFont
+import os.path
+scriptpath = os.path.dirname(__file__)
+
 
 class rotto:
     def __init__(self,filename):
         self.rotoList=[]
-        
-        self.rotodata= openpyxl.load_workbook(f"./{filename}")
-        self.rotoSheet=self.rotodata[filename.split('.')[0]]
+        self.scriptpath = os.path.dirname(__file__)
+        self.filepath = os.path.join(self.scriptpath, filename)
+
+        #self.rotodata= openpyxl.load_workbook(f"./{filename}")
+        self.rotodata= openpyxl.load_workbook(self.filepath)
+        sheet1=self.rotodata.sheetnames[0]
+        self.rotoSheet=self.rotodata[sheet1]
         #print(self.rotoSheet.cell(3,5).value)
         #for self.t in self.rotoSheet.iter_rows(min_row=4,max_row=6, min_col=4, max_col=4):
          #   for self.col in self.t:
@@ -121,9 +128,13 @@ class rotoCanvas:
                     break
             self.ry+=70+40
 
-
-
-        self.image.save(f"./images/{str(rottoList[1]).zfill(4)}회.png")
+        
+        global scriptpath
+        imagepath = os.path.join(scriptpath, f"./images/{str(rottoList[1]).zfill(4)}회.png")
+        imgsave= os.path.join(scriptpath,'./images/')
+        if not os.path.isdir(imgsave):                                                           
+            os.mkdir(imgsave)
+        self.image.save(imagepath)
         
         
         
